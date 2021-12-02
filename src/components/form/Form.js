@@ -1,11 +1,7 @@
-import { useContext } from 'react';
-import { SettingsContext } from '../../context/settings.js';
 import './form.scss';
 
 function Form(props) {
 
-  // pass our context singleton into our useContext hook
-  let settings = useContext(SettingsContext);
 
   return (
     <>

@@ -6,8 +6,8 @@ function Settings(props) {
 
   let [state, setState] = useState({
     numberOfItems: 4,
-    displayCompleted: false,
-    defaultSortField: 'name',
+    completed: false,
+    defaultSortField: 'difficulty',
   });
 
   return (
