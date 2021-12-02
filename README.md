@@ -15,4 +15,4 @@ Part 1 of a 4-Phase build of the To Do List application. In Phase 1, I refactore
 
 ## Deployment Link
 
-[netlify](https://creager-todo-app.netlify.app/)
+[gh pages](https://sarahcreager.github.io/todo-app/)
