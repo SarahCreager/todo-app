@@ -4,7 +4,7 @@ export const SettingsContext = React.createContext();
 
 function Settings(props) {
 
-  let [state, setState] = useState({
+  let [state] = useState({
     numberOfItems: 4,
     completed: false,
     defaultSortField: 'difficulty',

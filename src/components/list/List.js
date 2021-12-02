@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { SettingsContext } from '../../context/settings.js';
 import ListItem from '../listItem/ListItem.js';
 import './list.scss';
@@ -7,12 +7,44 @@ function List(props) {
 
   // pass our context singleton into our useContext hook
   let settings = useContext(SettingsContext);
+  let [currentPage, setPage] = useState(1);
+
+  function changePage(e) {
+    if (e.target.id === 'next') {
+      setPage(currentPage + 1);
+      return;
+    } else if (e.target.id === 'prev') {
+      setPage(currentPage - 1);
+      return;
+    }
+    return;
+  }
+
+  const lastIndex = currentPage * settings.numberOfItems;
+
+  const firstIndex = lastIndex - settings.numberOfItems;
+
+  const listItems = props.list.slice(firstIndex, lastIndex);
 
   return (
     <>
-      {props.list.map(item => (
-        <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem}/>
-      ))}
+      <div id='cardContainer'>
+        {listItems.map(item => (
+          <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
+        ))}
+      </div>
+      <div>
+        {currentPage > 1 ? (
+          <button id="prev" onClick={changePage} type="button">
+            Back
+          </button>
+        ) : null }
+        {props.list.length > settings.numberOfItems ? (
+          <button id="next" onClick={changePage} type="button">
+            Next
+          </button>
+        ) : null}
+      </div>
     </>
   );
 }
