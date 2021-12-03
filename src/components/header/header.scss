@@ -1,7 +1,14 @@
 #navBar {
-  height: 80px;
-  background-color: rgb(54, 54, 54);
-  color:white;
+  height: 100px;
+  background-color: #4B5E61;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-family: 'Fjalla One', sans-serif;
+  
+
+  #heading{
+    font-size: 40px;
+    color: #FAFCFB;
+  }
 }

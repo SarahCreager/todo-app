@@ -7,7 +7,7 @@ function Header(props) {
   return (
     <Navbar id='navBar'>
       <Navbar.Group align={Alignment.LEFT}>
-        <Navbar.Heading>To Do List: {props.incomplete} items pending</Navbar.Heading>
+        <Navbar.Heading id='heading'>To Do List: {props.incomplete} items pending</Navbar.Heading>
         <Navbar.Divider />
       </Navbar.Group>
     </Navbar>

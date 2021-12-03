@@ -5,11 +5,20 @@ export const SettingsContext = React.createContext();
 
 function Settings(props) {
 
-  let [state] = useState({
-    numberOfItems: 4,
-    completed: false,
-    defaultSortField: 'difficulty',
-  });
+  // In order for context behaviors to hook into our react application, we need to define them with useState hook
+  const [numberOfItems, setNumberOfItems] = useState(4);
+  const [showCompleted, setCompleted] = useState(false);
+
+  const state = {
+    numberOfItems,
+    showCompleted,
+    setNumberOfItems:(number) => {
+      setNumberOfItems(number);
+    },
+    setCompleted:(boolean) => {
+      setCompleted(boolean);
+    }
+  };
 
   return (
     <SettingsContext.Provider value={state}>
