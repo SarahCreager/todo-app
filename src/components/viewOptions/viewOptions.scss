@@ -1,20 +1,16 @@
 form {
-  margin: 4%;
   width:300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: #2D393A solid 6px;
+  border: #4B5E61  solid 6px;
   border-radius: 8px;
-  background-color: #ababab;
+  box-shadow: 8px 10px 8px #a7a6a6;
   
   h2{
     margin-bottom: 2%;
     padding-left: 10%;
     padding-right: 10%;
-    font-family: 'Fjalla One', sans-serif;
-    font-size: 30px;
-    color:#2D393A;
   }
 
   label{
@@ -29,5 +25,4 @@ form {
     margin-top: 4%;
     margin-bottom: 4%;
   }
-  
 }

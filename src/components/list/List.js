@@ -8,8 +8,6 @@ function List(props) {
   // pass our context singleton into our useContext hook
   const settings = useContext(SettingsContext);
   const [currentPage, setPage] = useState(1);
-  // const [startIndex, setStartIndex] = useState(0);
-  // const [endIndex, setEndIndex] = useState()
 
   function changePage(e) {
     if (e.target.id === 'next') {
@@ -30,7 +28,7 @@ function List(props) {
     <>
       <div id='cardContainer'>
         {listItems.map(item => (
-          <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
+          <ListItem key = {item.id} item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
         ))}
       </div>
       <div id="nextPrevButtons">
