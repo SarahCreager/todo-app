@@ -14,7 +14,12 @@ const ToDo = () => {
   function addItem(item) {
     item.id = uuid();
     item.complete = false;
-    setList([...list, item]);
+
+    if (!list.includes(item)){
+      setList([...list, item]);
+    } else {
+      alert('That to-do item already exsists!');
+    }  
   }
 
   function deleteItem(id) {

@@ -6,8 +6,10 @@ import './list.scss';
 function List(props) {
 
   // pass our context singleton into our useContext hook
-  let settings = useContext(SettingsContext);
-  let [currentPage, setPage] = useState(1);
+  const settings = useContext(SettingsContext);
+  const [currentPage, setPage] = useState(1);
+  // const [startIndex, setStartIndex] = useState(0);
+  // const [endIndex, setEndIndex] = useState()
 
   function changePage(e) {
     if (e.target.id === 'next') {
@@ -21,9 +23,7 @@ function List(props) {
   }
 
   const lastIndex = currentPage * settings.numberOfItems;
-
   const firstIndex = lastIndex - settings.numberOfItems;
-
   const listItems = props.list.slice(firstIndex, lastIndex);
 
   return (
@@ -33,12 +33,12 @@ function List(props) {
           <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
         ))}
       </div>
-      <div>
+      <div id="nextPrevButtons">
         {currentPage > 1 ? (
           <button id="prev" onClick={changePage} type="button">
             Back
           </button>
-        ) : null }
+        ) : null}
         {props.list.length > settings.numberOfItems ? (
           <button id="next" onClick={changePage} type="button">
             Next
