@@ -69,7 +69,7 @@ export default function App() {
   return (
     <>
       <Login />
-      <Auth capability="read" capability="create">
+      <Auth capability="read">
         <Header incomplete={incomplete} />
       </Auth>
       <Auth capability="create">
@@ -78,7 +78,7 @@ export default function App() {
           <Form handleSubmit={handleSubmit} handleChange={handleChange} />
         </div>
       </Auth>
-      <Auth capability="read" capability="create">
+      <Auth capability="read">
         <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </Auth>
     </>
