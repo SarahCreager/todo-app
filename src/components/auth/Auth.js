@@ -3,10 +3,10 @@ import { When } from 'react-if';
 
 import { AuthContext } from '../../context/auth.js';
 
-function Login(props) {
+function Auth(props) {
 
   let auth = useContext(AuthContext);
-  
+
   const isLoggedIn = auth.isLoggedIn;
   const authorized = props.capability ? auth.isAuthorized(props.capability) : true;
   const okToRender = isLoggedIn && authorized;
@@ -18,4 +18,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default Auth;
