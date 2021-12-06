@@ -28,19 +28,19 @@ const testUsers = {
 
 const SECRET = process.env.REACT_APP_SECRET || 'secretstring';
 
-function AuthProvider(props) {
-  const [token, setToken] = useState();
+function AuthProvider ({children}) {
+  const [token, setToken] = useState(null);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
 
   let state = {
     isLoggedIn,
     user,
+    isAuthorized,
     login,
     logout,
     token,
     validateToken,
-    isAuthorized,
     setLogInState
   };
 
@@ -50,8 +50,9 @@ function AuthProvider(props) {
   }
 
   function login(username, password) {
-    if (testUsers[username]) {
-      const token = jwt.sign(testUsers[username], SECRET);
+    let user = testUsers[username];
+    if (user && user.password === password) {
+      const token = jwt.sign(user, SECRET);
       validateToken(token);
     }
   }
@@ -65,6 +66,7 @@ function AuthProvider(props) {
   function validateToken(token) {
     try{
       let user = jwt.verify(token, SECRET);
+      console.log('validate Token User:', user);
       setLogInState(true, token, user);
     } catch (e) {
       setLogInState(false, null, {});
@@ -84,11 +86,12 @@ function AuthProvider(props) {
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
     validateToken(token);
+    console.log('useeffect token:', token);
   }, []);
 
   return (
     <AuthContext.Provider value={state}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 }
