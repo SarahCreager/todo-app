@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
+import cookie from 'react-cookies';
 
 export const AuthContext = React.createContext();
 
@@ -62,20 +63,28 @@ function AuthProvider(props) {
   }
 
   function validateToken(token) {
-    let user = jwt.verify(token, SECRET);
-    if (user){
+    try{
+      let user = jwt.verify(token, SECRET);
       setLogInState(true, token, user);
-    } else {
+    } catch (e) {
       setLogInState(false, null, {});
-      console.log('Error validating token');
+      console.log('Error validating token:', e);
     }
   }
 
   function setLogInState(boolean, token, user) {
+    cookie.save('auth', token);
     setLoggedIn(boolean);
     setToken(token);
     setUser(user);
   }
+
+  useEffect(() => {
+    const qs = new URLSearchParams(window.location.search);
+    const cookieToken = cookie.load('auth');
+    const token = qs.get('token') || cookieToken || null;
+    validateToken(token);
+  }, []);
 
   return (
     <AuthContext.Provider value={state}>
