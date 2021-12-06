@@ -22,7 +22,7 @@ const testUsers = {
     username: 'writer',
     password: 'test',
     role: 'writer',
-    capabilities: ['create'],
+    capabilities: ['read', 'create'],
   },
 };
 

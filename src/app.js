@@ -72,10 +72,12 @@ export default function App() {
       <Auth capability="read">
         <Header incomplete={incomplete} />
       </Auth>
-      <Auth capability="create">
+      <Auth capability="read">
         <div id="formContainer">
           <ViewOptions />
-          <Form handleSubmit={handleSubmit} handleChange={handleChange} />
+          <Auth capability="create">
+            <Form handleSubmit={handleSubmit} handleChange={handleChange} />
+          </Auth>
         </div>
       </Auth>
       <Auth capability="read">
