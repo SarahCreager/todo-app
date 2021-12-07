@@ -25,6 +25,7 @@ function ViewOptions() {
     // put items in storage
     let stringifiedObject = JSON.stringify({ numberOfItems: settings.numberOfItems, showCompleted: settings.showCompleted });
     localStorage.setItem('userPreferences', stringifiedObject);
+    alert('view options saved!');
   }
 
 
@@ -45,7 +46,7 @@ function ViewOptions() {
           <input onChange={handleInputChange} min="0" step="1" name="tasksPerPage" type="number" />
         </label>
         <label>
-          <button type="submit">Add Item</button>
+          <button type="submit">Save</button>
         </label>
       </form>
     </>

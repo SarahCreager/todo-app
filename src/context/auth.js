@@ -22,7 +22,7 @@ const testUsers = {
     username: 'writer',
     password: 'test',
     role: 'writer',
-    capabilities: ['create'],
+    capabilities: ['read', 'create'],
   },
 };
 
@@ -66,7 +66,6 @@ function AuthProvider ({children}) {
   function validateToken(token) {
     try{
       let user = jwt.verify(token, SECRET);
-      console.log('validate Token User:', user);
       setLogInState(true, token, user);
     } catch (e) {
       setLogInState(false, null, {});
@@ -86,7 +85,6 @@ function AuthProvider ({children}) {
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
     validateToken(token);
-    console.log('useeffect token:', token);
   }, []);
 
   return (
