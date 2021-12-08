@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 export const AuthContext = React.createContext();
 
 const SECRET = process.env.REACT_APP_SECRET || 'secretstring';
-const DATABASE_URL = process.env.REACT_APP_URL || 'http://localhost:3003';
+const DATABASE_URL = process.env.REACT_APP_URL;
 
 function AuthProvider ({children}) {
 
