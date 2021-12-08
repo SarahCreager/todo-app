@@ -11,6 +11,8 @@ import List from './components/list/List.js';
 import ViewOptions from './components/viewOptions/viewOptions.js';
 import { SettingsContext } from './context/settings.js';
 import './app.scss';
+import SignUp from './components/signUp/SignUp';
+
 
 export default function App() {
   const settings = useContext(SettingsContext);
@@ -18,6 +20,7 @@ export default function App() {
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem);
+
 
   function addItem(item) {
     item.id = uuid();
@@ -60,15 +63,17 @@ export default function App() {
     let storage = localStorage.getItem('userPreferences');
     if (storage) {
       let parsedObject = JSON.parse(storage);
-      console.log('local storage', parsedObject);
       settings.setNumberOfItems(parsedObject.numberOfItems);
       settings.setCompleted(parsedObject.showCompleted);
     }
   }, []);
 
+
+
   return (
     <>
       <Login />
+      <SignUp />
       <Auth capability="read">
         <Header incomplete={incomplete} />
       </Auth>
