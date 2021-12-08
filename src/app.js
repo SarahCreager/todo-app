@@ -14,7 +14,7 @@ import './app.scss';
 import SignUp from './components/signUp/SignUp';
 import axios from 'axios';
 
-const DATABASE_URL = process.env.REACT_APP_URL || 'http://localhost:3003';
+const DATABASE_URL = process.env.REACT_APP_URL;
 
 export default function App() {
   const settings = useContext(SettingsContext);
