@@ -68,6 +68,7 @@ function AuthProvider ({children}) {
 
   function setLogInState(boolean, token, user) {
     cookie.save('auth', user?.token);
+    setUser(user);
     setLoggedIn(boolean);
     setToken(token);
   }
