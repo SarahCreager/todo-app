@@ -87,12 +87,11 @@ function AuthProvider ({children}) {
     }
 
     try {
-      // error is here
       let res = await axios.post(`${DATABASE_URL}/signup`, { username, password, role: 'admin' });
       const token = jwt.sign(res.data.user, SECRET);
       validateToken(token);
     } catch(err) {
-      console.log(err);
+      console.log('error signing in', err);
       return false;
     }
   }
