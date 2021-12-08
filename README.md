@@ -2,7 +2,7 @@
 
 ## Problem Domain
 
-Part 2 of a 4-Phase build of the To Do List application. In Phase 1, I refactored the application and implemented context API. I also learned how to use Blueprint Component API and styled the application with this. In Phase 2, I implemented a user preference form where the user can alter the view of the application using context API. I also implemented local storage so the user's preferences are applied automatically on startup.  Phase 3 implements log in log out feature and authorization. Includes test suite.
+Part 4 of a 4-Phase build of the To Do List application. In Phase 1, I refactored the application and implemented context API. I also learned how to use Blueprint Component API and styled the application with this. In Phase 2, I implemented a user preference form where the user can alter the view of the application using context API. I also implemented local storage so the user's preferences are applied automatically on startup.  Phase 3 implements log in log out feature and authorization. Includes test suite. In Phase 4, I connected to a live server for login, authorization, and data access
 
 ## Features 
 
@@ -24,7 +24,14 @@ Part 2 of a 4-Phase build of the To Do List application. In Phase 1, I refactore
 
 * Implement a `<Login />` Component that has the following features:
 
+* Alter the Add, Toggle Complete, and Delete functions within your to do application to use your API instead of in memory state.
+
+* Alter the Login Context to use the server to login users instead of our mock users list.
+
 
 ## Deployment Link
 
 [gh pages](https://sarahcreager.github.io/todo-app/)
+
+[heroku](https://creager-todo-app-server.herokuapp.com/)
+

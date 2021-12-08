@@ -24,6 +24,7 @@ function List(props) {
   const firstIndex = lastIndex - settings.numberOfItems;
   const listItems = props.list.slice(firstIndex, lastIndex);
 
+
   return (
     <>
       <div id='cardContainer'>

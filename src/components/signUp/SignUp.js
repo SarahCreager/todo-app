@@ -1,45 +1,45 @@
 import React, { useContext, useState } from 'react';
-import {When} from 'react-if';
+import { When } from 'react-if';
 
 import { AuthContext } from '../../context/auth.js';
 
 function SignUp() {
   let auth = useContext(AuthContext);
 
-  let [user, setUser] = useState({ username: '', password: '' });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  handleChange = e => {
-    setUser({ [e.target.name]: e.target.value });
-  };
+  function handleChange (e) {
+    let { name, value } = e.target;
 
-  handleSubmit = e => {
+    if (name === 'username') setUsername(value);
+    if (name === 'password') setPassword(value);
+  }
+
+  function handleSubmit (e) {
     e.preventDefault();
-    auth.login(user.username, user.password);
-  };
+    auth.register(username, password);
+  }
 
-    return (
-      <>
-        <When condition={auth.isLoggedIn}>
-          <button onClick={auth.logout}>Log Out</button>
-        </When>
-
-        <When condition={!auth.isLoggedIn}>
-          <form onSubmit={handleSubmit}>
-            <input
-              placeholder="username"
-              name="username"
-              onChange={handleChange}
-            />
-            <input
-              placeholder="password"
-              name="password"
-              onChange={handleChange}
-            />
-            <button>Login</button>
-          </form>
-        </When>
-      </>
-    );
+  return (
+    <>
+      <When condition={!auth.isLoggedIn}>
+        <form onSubmit={handleSubmit}>
+          <input
+            placeholder="username"
+            name="username"
+            onChange={handleChange}
+          />
+          <input
+            placeholder="password"
+            name="password"
+            onChange={handleChange}
+          />
+          <button>SignUp</button>
+        </form>
+      </When>
+    </>
+  );
 }
 
 export default SignUp;

@@ -16,10 +16,9 @@ function Login() {
     if (name === 'password') setPassword(value);
   }
 
-  function handleSubmit (e) {
-    console.log('submit');
+  async function handleSubmit (e) {
     e.preventDefault();
-    auth.login(username, password);
+    await auth.login(username, password);
   }
 
   return (

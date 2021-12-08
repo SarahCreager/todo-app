@@ -1,47 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
 
 export const AuthContext = React.createContext();
 
-// dummy users for testing
-const testUsers = {
-  admin: {
-    username: 'admin',
-    password: 'test',
-    role: 'admin',
-    capabilities: ['create', 'read', 'update', 'delete'],
-  },
-  editor: {
-    username: 'editor',
-    password: 'test',
-    role: 'editor',
-    capabilities: ['read', 'update'],
-  },
-  writer: {
-    username: 'writer',
-    password: 'test',
-    role: 'writer',
-    capabilities: ['read', 'create'],
-  },
-};
-
 const SECRET = process.env.REACT_APP_SECRET || 'secretstring';
+const DATABASE_URL = process.env.REACT_APP_URL || 'http://localhost:3003';
 
 function AuthProvider ({children}) {
-  const [token, setToken] = useState(null);
+
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [token, setToken] = useState(null);
 
   let state = {
     isLoggedIn,
     user,
     isAuthorized,
     login,
-    logout,
     token,
-    validateToken,
-    setLogInState
+    logout,
+    setLogInState,
+    register
   };
 
   function isAuthorized(capability) {
@@ -49,17 +31,22 @@ function AuthProvider ({children}) {
     return user?.capabilities?.includes(capability);
   }
 
-  function login(username, password) {
-    let user = testUsers[username];
-    if (user && user.password === password) {
-      const token = jwt.sign(user, SECRET);
-      validateToken(token);
+  async function login(username, password) {
+    if (username === '' || password === '') {
+      alert('please enter username and password');
     }
-  }
 
-  function logout() {
-    if (isLoggedIn) {
-      setLogInState(false, null, {});
+    try {
+      let response = await axios.post(`${DATABASE_URL}/signin`, {}, {
+        auth: {
+          username,
+          password
+        }
+      });
+      const token = jwt.sign(response.data.user, SECRET);
+      validateToken(token);
+    } catch (e) {
+      console.log('login error', e);
     }
   }
 
@@ -73,19 +60,44 @@ function AuthProvider ({children}) {
     }
   }
 
+  function logout() {
+    if (isLoggedIn) {
+      setLogInState(false, null, {});
+    }
+  }
+
   function setLogInState(boolean, token, user) {
-    cookie.save('auth', token);
+    cookie.save('auth', user?.token);
     setLoggedIn(boolean);
     setToken(token);
     setUser(user);
+    console.log(user);
   }
 
   useEffect(() => {
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load('auth');
-    const token = qs.get('token') || cookieToken || null;
+    const token = qs.get('token');
+    cookie.save('auth', token || cookieToken || null);
     validateToken(token);
   }, []);
+
+  async function register (username, password) {
+    if(username === '' || password === '') {
+      alert('please enter username and password');
+    }
+
+    try {
+      // error is here
+      let res = await axios.post(`${DATABASE_URL}/signup`, { username, password, role: 'admin' });
+      console.log(res);
+      const token = jwt.sign(res.data.user, SECRET);
+      validateToken(token);
+    } catch(err) {
+      console.log(err);
+      return false;
+    }
+  }
 
   return (
     <AuthContext.Provider value={state}>
