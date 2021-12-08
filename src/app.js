@@ -12,7 +12,9 @@ import ViewOptions from './components/viewOptions/viewOptions.js';
 import { SettingsContext } from './context/settings.js';
 import './app.scss';
 import SignUp from './components/signUp/SignUp';
+import axios from 'axios';
 
+const DATABASE_URL = process.env.REACT_APP_URL || 'http://localhost:3003';
 
 export default function App() {
   const settings = useContext(SettingsContext);
@@ -22,18 +24,20 @@ export default function App() {
   const { handleChange, handleSubmit } = useForm(addItem);
 
 
-  function addItem(item) {
+  async function addItem(item) {
     item.id = uuid();
     item.complete = false;
 
     if (!list.includes(item)) {
-      setList([...list, item]);
+      let response = await axios.post(`${DATABASE_URL}/todo`, { text: item.text, assignee: item.assignee, complete: item.complete, difficulty: item.difficulty});
+      setList([...list, response.data]);
     } else {
       alert('That to-do item already exsists!');
     }
   }
 
-  function deleteItem(id) {
+  async function deleteItem(id) {
+    await axios.delete(`${DATABASE_URL}/todo/${id}`);
     const items = list.filter(item => item.id !== id);
     setList(items);
   }
@@ -59,6 +63,7 @@ export default function App() {
 
 
   useEffect(() => {
+    handleGet();
     // pull user preferences from storage on page load
     let storage = localStorage.getItem('userPreferences');
     if (storage) {
@@ -68,7 +73,9 @@ export default function App() {
     }
   }, []);
 
-
+  async function handleGet() {
+    await axios.get(`${DATABASE_URL}/todo`);
+  }
 
   return (
     <>
