@@ -70,8 +70,6 @@ function AuthProvider ({children}) {
     cookie.save('auth', user?.token);
     setLoggedIn(boolean);
     setToken(token);
-    setUser(user);
-    console.log(user);
   }
 
   useEffect(() => {

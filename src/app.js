@@ -42,8 +42,7 @@ export default function App() {
     setList(items);
   }
 
-  function toggleComplete(id) {
-
+  async function toggleComplete(id) {
     const items = list.map(item => {
       if (item.id === id) {
         item.complete = !item.complete;
@@ -52,7 +51,6 @@ export default function App() {
     });
 
     setList(items);
-
   }
 
   useEffect(() => {
@@ -74,7 +72,8 @@ export default function App() {
   }, []);
 
   async function handleGet() {
-    await axios.get(`${DATABASE_URL}/todo`);
+    let response = await axios.get(`${DATABASE_URL}/todo`);
+    setList(response.data);
   }
 
   return (
