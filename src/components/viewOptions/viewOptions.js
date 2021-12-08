@@ -12,7 +12,6 @@ function ViewOptions() {
 
   function handleRadioChange(e) {
     settings.setCompleted(e.target.value);
-    console.log(settings.showCompleted);
     setRadioSelected(e.currentTarget.value);
   }
 
